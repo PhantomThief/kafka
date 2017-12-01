@@ -625,8 +625,8 @@ public final class ConsumerCoordinator extends AbstractCoordinator {
             @Override
             public void onComplete(Map<TopicPartition, OffsetAndMetadata> offsets, Exception exception) {
                 if (exception != null) {
-                    log.warn("Auto-commit of offsets {} failed for group {}: {}", offsets, groupId,
-                            exception.getMessage());
+                    log.warn("Auto-commit of offsets {} failed for group {}: {}, isLeader:{}",
+                            offsets, groupId, exception.getMessage(), isLeader);
                     if (exception instanceof RetriableException)
                         nextAutoCommitDeadline = Math.min(time.milliseconds() + retryBackoffMs, nextAutoCommitDeadline);
                 } else {
