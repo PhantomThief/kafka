@@ -769,7 +769,7 @@ public final class ConsumerCoordinator extends AbstractCoordinator {
                     // need to re-join group
                     log.debug("Offset commit for group {} failed: {}", groupId, error.message());
                     resetGeneration();
-                    future.raise(new CommitFailedException());
+                    future.raise(new CommitFailedException(error));
                     return;
                 } else if (error == Errors.UNKNOWN_TOPIC_OR_PARTITION) {
                     log.debug("Offset commit for group {} failed on partition {}: {}", groupId, tp, error.message());
